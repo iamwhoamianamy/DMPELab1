@@ -6,5 +6,6 @@ public:
 
    Point();
    Point(double x, double y, double z);
+   static double Distance(Point a, Point b);
 };
 

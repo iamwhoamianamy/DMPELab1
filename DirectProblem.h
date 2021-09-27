@@ -14,11 +14,10 @@ public:
    double sigma;
    double I;
    vector<vector<double>> V;
+   int sources_count;
+   int recievers_count;
 
    DirectProblem(string fileName);
-   void GenerateData()
-   {
-
-   }
+   void GenerateData();
 };
 

@@ -8,7 +8,6 @@ DirectProblem::DirectProblem(string fileName)
    string _;
    fin >> _;
 
-   int sources_count;
    fin >> sources_count;
 
    A.resize(sources_count);
@@ -27,7 +26,6 @@ DirectProblem::DirectProblem(string fileName)
 
    fin >> _;
 
-   int recievers_count;
    fin >> recievers_count;
 
    M.resize(recievers_count);
@@ -50,4 +48,27 @@ DirectProblem::DirectProblem(string fileName)
 
    V = vector<vector<double>>(sources_count, 
                               vector<double>(recievers_count));
+}
+
+void DirectProblem::GenerateData()
+{
+   double factor = I / (2 * M_PI * sigma);
+
+   for (size_t i = 0; i < sources_count; i++)
+   {
+      for (size_t j = 0; j < recievers_count; j++)
+      {
+         double r_AM = Point::Distance(A[i], M[j]);
+         double r_BM = Point::Distance(B[i], M[j]);
+
+         double r_AN = Point::Distance(A[i], N[j]);
+         double r_BN = Point::Distance(B[i], N[j]);
+
+         V[i][j] = factor * (
+            1.0 / r_BM - 
+            1.0 / r_AM - 
+            1.0 / r_BN + 
+            1.0 / r_AN);
+      }
+   }
 }
