@@ -1,5 +1,4 @@
-#include <fstream>
-#include "DirectProblem.h"
+#include "DirectProblem.hpp"
 
 DirectProblem::DirectProblem(string fileName)
 {
@@ -12,6 +11,7 @@ DirectProblem::DirectProblem(string fileName)
 
    A.resize(sources_count);
    B.resize(sources_count);
+   I.resize(sources_count);
 
    for (size_t i = 0; i < sources_count; i++)
    {
@@ -42,7 +42,7 @@ DirectProblem::DirectProblem(string fileName)
       N[i] = Point(x, y, z);
    }
 
-   fin >> _ >> sigma >> I;
+   fin >> _ >> sigma >> I[0] >> I[1] >> I[2];
 
    fin.close();
 
@@ -52,10 +52,9 @@ DirectProblem::DirectProblem(string fileName)
 
 void DirectProblem::GenerateData()
 {
-   double factor = I / (2 * M_PI * sigma);
-
    for (size_t i = 0; i < sources_count; i++)
    {
+      double factor = I[i] / (2 * M_PI * sigma);
       for (size_t j = 0; j < recievers_count; j++)
       {
          double r_AM = Point::Distance(A[i], M[j]);
@@ -70,5 +69,20 @@ void DirectProblem::GenerateData()
             1.0 / r_BN + 
             1.0 / r_AN);
       }
+   }
+}
+
+void DirectProblem::Output()
+{
+   cout << "DirectProblem" << endl;
+   cout << "Source[N]" << setw(15) << "Reciever[0]" << setw(15) << "Reciever[1]" << setw(15) << "Reciever[2]" << endl;
+   cout << scientific;
+   for (size_t i = 0; i < sources_count; i++)
+   {
+      cout << "Source[" << i << "]";
+      for (size_t j = 0; j < recievers_count; j++)
+         cout << setw(15) << V[i][j];
+
+      cout << endl;
    }
 }

@@ -145,9 +145,9 @@
     <ClCompile Include="Point.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DirectProblem.h" />
-    <ClInclude Include="InverseProblem.h" />
-    <ClInclude Include="Point.h" />
+    <ClInclude Include="DirectProblem.hpp" />
+    <ClInclude Include="InverseProblem.hpp" />
+    <ClInclude Include="Point.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="sources_recievers.txt" />
